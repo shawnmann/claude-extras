@@ -42,6 +42,10 @@ Each log entry looks something like:
 }
 ```
 
+## Note on file paths
+
+Use a relative path (e.g., `./hooks/hello-world/hook.ps1`) in your settings command rather than `$CLAUDE_PROJECT_DIR`. Claude Code runs hooks from the project's working directory, so relative paths resolve correctly. Environment variables like `$CLAUDE_PROJECT_DIR` may not expand properly in the command string and can cause the hook to silently fail.
+
 ## Next steps
 
 - Change the `matcher` in settings to filter specific tools (e.g., `"Bash"`, `"Edit|Write"`)
