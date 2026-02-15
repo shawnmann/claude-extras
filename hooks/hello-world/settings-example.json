@@ -2,11 +2,11 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/hooks/hello-world/hook.ps1\""
+            "command": "powershell -ExecutionPolicy Bypass -File ./hooks/hello-world/hook.ps1"
           }
         ]
       }
