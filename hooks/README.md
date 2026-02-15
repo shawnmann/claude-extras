@@ -32,7 +32,7 @@ Hooks are shell commands that run automatically at specific points in Claude Cod
 
 Each sample hook includes a `settings-example.json` with the config snippet you need. To enable a hook:
 
-1. **Make the script executable** (only needed once per script):
+1. **Make the script executable** (bash/macOS/Linux only, not needed for PowerShell):
    ```bash
    chmod +x hooks/<hook-name>/hook.sh
    ```
@@ -43,6 +43,8 @@ Each sample hook includes a `settings-example.json` with the config snippet you 
 3. **Restart your Claude Code session** so it picks up the new settings.
 
 That's it — the hook will now fire automatically whenever its event triggers.
+
+> **Note:** The sample hooks in this repo are written for **PowerShell** (Windows). The concepts apply to any shell — just swap the script for a bash equivalent if you're on macOS/Linux.
 
 ## Sample Hooks
 
