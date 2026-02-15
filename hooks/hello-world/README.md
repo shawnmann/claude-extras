@@ -12,36 +12,18 @@ A minimal "start here" hook that logs the JSON it receives from Claude Code. It 
 
 | File | Purpose |
 |------|---------|
-| `hook.sh` | Bash version of the hook |
-| `hook.ps1` | PowerShell version of the hook |
-| `settings-example.json` | Config snippet for bash (Git Bash / WSL / macOS / Linux) |
-| `settings-example-powershell.json` | Config snippet for PowerShell on Windows |
+| `hook.ps1` | PowerShell hook script |
+| `settings-example.json` | Config snippet to add to your `.claude/settings.json` |
 
-## Setup — PowerShell (Windows)
+## Setup
 
-1. Copy the contents of `settings-example-powershell.json` into your project's `.claude/settings.json` (or merge it with existing hooks config).
+1. Copy the contents of `settings-example.json` into your project's `.claude/settings.json` (or merge it with existing hooks config).
 
 2. Start a Claude Code session and use any tool. The hook will fire on every tool call.
 
 3. Check the log:
    ```powershell
    cat $env:TEMP\claude-hook-hello-world.log
-   ```
-
-## Setup — Bash (Git Bash / WSL / macOS / Linux)
-
-1. Make the script executable:
-   ```bash
-   chmod +x hooks/hello-world/hook.sh
-   ```
-
-2. Copy the contents of `settings-example.json` into your project's `.claude/settings.json` (or merge it with existing hooks config).
-
-3. Start a Claude Code session and use any tool. The hook will fire on every tool call.
-
-4. Check the log:
-   ```bash
-   cat /tmp/claude-hook-hello-world.log
    ```
 
 ## What you'll see
