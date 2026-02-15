@@ -28,6 +28,22 @@ Hooks are shell commands that run automatically at specific points in Claude Cod
 | `SessionStart` | Session begins or resumes | No |
 | `Stop` | Claude finishes responding | Yes |
 
+## How to enable a hook
+
+Each sample hook includes a `settings-example.json` with the config snippet you need. To enable a hook:
+
+1. **Make the script executable** (only needed once per script):
+   ```bash
+   chmod +x hooks/<hook-name>/hook.sh
+   ```
+   This tells the system the file is a program it can run, not just a text file. Git tracks this permission, so it persists across commits.
+
+2. **Add the hook config** to your project's `.claude/settings.json`. Copy the contents of the hook's `settings-example.json` into it. If the file doesn't exist yet, create `.claude/settings.json` with the snippet. If it already exists, merge the new hook entry into the existing `hooks` object.
+
+3. **Restart your Claude Code session** so it picks up the new settings.
+
+That's it — the hook will now fire automatically whenever its event triggers.
+
 ## Sample Hooks
 
 | Hook | Event | Pattern |

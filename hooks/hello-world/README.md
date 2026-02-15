@@ -5,17 +5,30 @@ A minimal "start here" hook that logs the JSON it receives from Claude Code. It 
 ## What it does
 
 1. Captures the JSON that Claude Code sends via stdin
-2. Pretty-prints it (if `jq` is installed) and appends it to a log file
+2. Pretty-prints it and appends it to a log file
 3. Exits 0 (allow the action to proceed)
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `hook.sh` | The hook script |
-| `settings-example.json` | Config snippet to copy into `.claude/settings.json` |
+| `hook.sh` | Bash version of the hook |
+| `hook.ps1` | PowerShell version of the hook |
+| `settings-example.json` | Config snippet for bash (Git Bash / WSL / macOS / Linux) |
+| `settings-example-powershell.json` | Config snippet for PowerShell on Windows |
 
-## Setup
+## Setup — PowerShell (Windows)
+
+1. Copy the contents of `settings-example-powershell.json` into your project's `.claude/settings.json` (or merge it with existing hooks config).
+
+2. Start a Claude Code session and use any tool. The hook will fire on every tool call.
+
+3. Check the log:
+   ```powershell
+   cat $env:TEMP\claude-hook-hello-world.log
+   ```
+
+## Setup — Bash (Git Bash / WSL / macOS / Linux)
 
 1. Make the script executable:
    ```bash
