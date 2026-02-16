@@ -10,7 +10,6 @@ claude-extras — a collection of extras, utilities, and samples for use with Cl
 hooks/      # Claude Code hooks
 skills/     # Custom skills
 mcp/        # MCP server experiments
-plugins/    # Plugin investigations
 ```
 
 ## Guidelines
