@@ -11,6 +11,7 @@ hooks/      # Claude Code hooks
 skills/     # Custom skills
 mcp/        # MCP server experiments
 plugins/    # Plugin examples
+subagents/  # Subagent examples
 ```
 
 ## Guidelines
