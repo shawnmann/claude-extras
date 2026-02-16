@@ -1,15 +1,1 @@
-{
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell -ExecutionPolicy Bypass -File ./hooks/desktop-notification/hook.ps1"
-          }
-        ]
-      }
-    ]
-  }
-}
+{}
