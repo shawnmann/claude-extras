@@ -13,6 +13,10 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Local config
+.mcp.json
+.claude/settings.local.json
+
 # Build
 dist/
 build/
