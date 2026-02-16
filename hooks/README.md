@@ -53,4 +53,4 @@ That's it — the hook will now fire automatically whenever its event triggers.
 | [Hello world](hello-world/) | `PreToolUse` | Log all tool calls to a file (starter hook) |
 | [Protect sensitive files](protect-sensitive-files/) | `PreToolUse` | Block edits to `.env`, lock files, etc. |
 | [Auto-format after edits](auto-format/) | `PostToolUse` | Run a formatter on any file Claude writes |
-| Desktop notification | `Notification` | Toast when Claude needs input |
+| [Desktop notification](desktop-notification/) | `Notification` | Toast when Claude needs input |
