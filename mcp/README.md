@@ -63,3 +63,70 @@ Each sample server is self-contained. To install one:
 | [string-utils](tools/) | `mcp/tools/` | Tools | Multiple tools, optional params, Zod schemas |
 | [project-info](resources/) | `mcp/resources/` | Resources | Static resources + dynamic resource templates |
 | [writing-assistant](prompts/) | `mcp/prompts/` | Prompts | Prompt templates with optional enum and multi-message |
+
+## Understanding MCP Prompts
+
+MCP prompts are one of the three core capabilities any MCP server can expose (alongside tools and resources). A prompt is a **reusable message template** — a saved recipe that returns pre-built messages for a client to send to an LLM. Any MCP server can register prompts, and they always follow the same protocol.
+
+Unlike tools (which the LLM calls directly) and resources (which provide read-only data), prompts are designed for **client-side use** — the client retrieves them and decides what to do with the generated messages.
+
+### How a client uses prompts
+
+1. **Discovery** — the client calls `prompts/list` to see what prompts the server offers
+2. **Retrieval** — the client calls `prompts/get` with a prompt name + arguments
+3. **Usage** — the server returns pre-built messages that the client injects into a conversation
+
+This is useful for building custom AI clients, IDE extensions, or chat UIs where you want consistent, reusable prompt templates. Our `writing-assistant` server demonstrates this with two example prompts (`summarize` and `code_review`), but you could build prompts for anything — SQL generation, email drafting, commit messages, etc.
+
+### Example: testing prompts with the SDK
+
+```typescript
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+
+async function main() {
+  // 1. Connect to the server (same way Claude Code does)
+  const transport = new StdioClientTransport({
+    command: "node",
+    args: ["mcp/prompts/build/index.js"],
+  });
+  const client = new Client({ name: "test-client", version: "1.0.0" });
+  await client.connect(transport);
+
+  // 2. Discovery — list available prompts
+  const { prompts } = await client.listPrompts();
+  console.log("Available prompts:", prompts);
+  // → [{ name: "summarize", ... }, { name: "code_review", ... }]
+
+  // 3. Retrieval — get a prompt with arguments filled in
+  const result = await client.getPrompt("summarize", {
+    text: "MCP servers expose tools, resources, and prompts over JSON-RPC.",
+    style: "bullet-points",
+  });
+  console.log("Generated messages:", JSON.stringify(result.messages, null, 2));
+  // → [{ role: "user", content: { type: "text", text: "Summarize as a bulleted list..." } }]
+
+  // 4. Pass these messages to an LLM API call
+  //    e.g., anthropic.messages.create({ messages: result.messages, ... })
+
+  await client.close();
+}
+
+main();
+```
+
+### The flow in a real app
+
+```
+User clicks "Summarize" in your UI
+        ↓
+Your app calls client.getPrompt("summarize", { text, style })
+        ↓
+Server returns pre-built messages with instructions baked in
+        ↓
+Your app sends those messages to Claude API → gets the summary
+        ↓
+Display result to user
+```
+
+The key value is **separation of concerns** — prompt logic lives in the MCP server and can be updated independently of the client app. Multiple clients (a web app, a CLI, an IDE plugin) can all reuse the same prompts without duplicating template logic.
